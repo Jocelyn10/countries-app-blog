@@ -8,16 +8,19 @@ import "./CountriesContainer.css";
 
 const CountriesContainer = () => {
   const [countries, setCountries] = useState([]);
+  // Afin d'écrire correctement le composant, nous devons également vérifier si le composant est toujours monté. Par conséquent,
+  // nous déclarons tout d'abord une nouvelle variable componentIsMounted. Il utilise le hook useRef, qui
+  // retourne un objet de référence mutable dont la propriété .current est initialisée à l'argument passé (initialValue).
   const componentIsMounted = useRef(true);
 
   useEffect(() => {
     getAllCountries()
-      .then(response => {
+      .then((response) => {
         if (componentIsMounted.current) {
           setCountries(response);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     return () => {
@@ -27,7 +30,7 @@ const CountriesContainer = () => {
 
   return (
     <div className="countries-container">
-      {countries.map(country => {
+      {countries.map((country) => {
         return <CountryCard key={country.numericCode} country={country} />;
       })}
     </div>
